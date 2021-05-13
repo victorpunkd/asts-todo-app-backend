@@ -22,6 +22,11 @@ export class TodosService {
         });
     }
 
+    async update(id, data) {
+        const [numberOfAffectedRows, [updatedPost]] = await this.todoRepository.update({ ...data }, { where: { id }, returning: true });
+        return { numberOfAffectedRows, updatedPost };
+    }
+
     async delete(id) {
         return await this.todoRepository.destroy({ where: { id } });
     }
